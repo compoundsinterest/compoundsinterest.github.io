@@ -1,2 +1,4 @@
 # compoundsinterest.github.io
-i want to mek pwogwam 
+a milli a milli
+a mil
+a milli a milli
