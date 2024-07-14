@@ -22,7 +22,6 @@
     <div id="canvas-container"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // Basic Three.js setup
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -31,7 +30,6 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         container.appendChild(renderer.domElement);
 
-        // Create a rotating cube
         const geometry = new THREE.BoxGeometry();
         const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
         const cube = new THREE.Mesh(geometry, material);
@@ -39,18 +37,42 @@
         scene.add(cube);
         camera.position.z = 5;
 
-        const animate = function () {
+        // Raycaster and mouse for detecting clicks
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        function onMouseClick(event) {
+            // Update the mouse variable
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            // Set the raycaster from the camera and mouse position
+            raycaster.setFromCamera(mouse, camera);
+
+            // Calculate objects intersecting the raycaster
+            const intersects = raycaster.intersectObjects(scene.children);
+
+            if (intersects.length > 0) {
+                // Check if the clicked object is the cube
+                if (intersects[0].object === cube) {
+                    window.location.href = "https://example.com"; // Change to your target URL
+                }
+            }
+        }
+
+        window.addEventListener('click', onMouseClick, false);
+
+        function animate() {
             requestAnimationFrame(animate);
 
             cube.rotation.x += 0.01;
             cube.rotation.y += 0.01;
 
             renderer.render(scene, camera);
-        };
+        }
 
         animate();
-        
-        // Handle window resize
+
         window.addEventListener('resize', () => {
             const width = window.innerWidth;
             const height = window.innerHeight;
@@ -62,3 +84,4 @@
     </script>
 </body>
 </html>
+
