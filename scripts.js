@@ -13,7 +13,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     content.addEventListener('click', () => {
         content.innerHTML = 'You clicked me!';
-        content.style.transform = 'rotate(360deg)';
-        content.style.transition = 'transform 1s ease';
+        content.style.animation = 'rotate 1s linear';
+    });
+
+    content.addEventListener('animationend', () => {
+        content.style.animation = '';
     });
 });
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
