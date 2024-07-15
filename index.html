@@ -21,6 +21,7 @@
 <body>
     <div id="canvas-container"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/loaders/GLTFLoader.js"></script>
     <script>
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
@@ -30,31 +31,32 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         container.appendChild(renderer.domElement);
 
-        const geometry = new THREE.BoxGeometry();
-        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        const cube = new THREE.Mesh(geometry, material);
+        // Load the custom 3D model
+        const loader = new THREE.GLTFLoader();
+        let customModel;
 
-        scene.add(cube);
-        camera.position.z = 5;
+        loader.load('models/your_model.glb', function (gltf) {
+            customModel = gltf.scene;
+            scene.add(customModel);
+            customModel.position.y = -1; // Adjust position as needed
+        }, undefined, function (error) {
+            console.error(error);
+        });
 
         // Raycaster and mouse for detecting clicks
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
 
         function onMouseClick(event) {
-            // Update the mouse variable
             mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
             mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-            // Set the raycaster from the camera and mouse position
             raycaster.setFromCamera(mouse, camera);
 
-            // Calculate objects intersecting the raycaster
-            const intersects = raycaster.intersectObjects(scene.children);
+            const intersects = raycaster.intersectObjects(scene.children, true);
 
             if (intersects.length > 0) {
-                // Check if the clicked object is the cube
-                if (intersects[0].object === cube) {
+                if (intersects[0].object === customModel) {
                     window.location.href = "https://example.com"; // Change to your target URL
                 }
             }
@@ -65,8 +67,10 @@
         function animate() {
             requestAnimationFrame(animate);
 
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.01;
+            if (customModel) {
+                customModel.rotation.x += 0.01;
+                customModel.rotation.y += 0.01;
+            }
 
             renderer.render(scene, camera);
         }
