@@ -26,21 +26,24 @@
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer();
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
 
         renderer.setSize(window.innerWidth, window.innerHeight);
         container.appendChild(renderer.domElement);
+
+        camera.position.z = 5;
 
         // Load the custom 3D model
         const loader = new THREE.GLTFLoader();
         let customModel;
 
-        loader.load('https://threejs.org/examples/models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf', function (gltf) {
+        loader.load('models/your_model.glb', function (gltf) {
             customModel = gltf.scene;
             scene.add(customModel);
-            customModel.position.y = -1; // Adjust position as needed
+            customModel.position.set(0, 0, 0); // Center the model
+            console.log('Model loaded successfully.');
         }, undefined, function (error) {
-            console.error(error);
+            console.error('Error loading model:', error);
         });
 
         // Raycaster and mouse for detecting clicks
@@ -57,7 +60,7 @@
 
             if (intersects.length > 0) {
                 if (intersects[0].object === customModel) {
-                    window.location.href = "https://compoundsinterest.github.io"; // Change to your target URL
+                    window.location.href = "https://example.com"; // Change to your target URL
                 }
             }
         }
