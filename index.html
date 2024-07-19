@@ -35,7 +35,7 @@
         const loader = new THREE.GLTFLoader();
         let customModel;
 
-        loader.load('models/lphgmodeleye.glb', function (gltf) {
+        loader.load('https://threejs.org/examples/models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf', function (gltf) {
             customModel = gltf.scene;
             scene.add(customModel);
             customModel.position.y = -1; // Adjust position as needed
