@@ -35,7 +35,7 @@
         const loader = new THREE.GLTFLoader();
         let customModel;
 
-        loader.load('models/lpeye2.0.glb', function (gltf) {
+        loader.load('models/lphgmodeleye.glb', function (gltf) {
             customModel = gltf.scene;
             scene.add(customModel);
             customModel.position.y = -1; // Adjust position as needed
@@ -57,7 +57,7 @@
 
             if (intersects.length > 0) {
                 if (intersects[0].object === customModel) {
-                    window.location.href = "https://example.com"; // Change to your target URL
+                    window.location.href = "https://compoundsinterest.github.io"; // Change to your target URL
                 }
             }
         }
