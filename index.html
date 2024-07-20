@@ -30,7 +30,7 @@
         const renderer = new THREE.WebGLRenderer({ antialias: true });
 
         // Set background color
-        renderer.setClearColor(0xffffff); // Change background color here
+        renderer.setClearColor(0x818589); // Change background color here
 
         renderer.setSize(window.innerWidth, window.innerHeight);
         container.appendChild(renderer.domElement);
@@ -59,8 +59,8 @@
                 if (node.isMesh) {
                     node.material = new THREE.MeshStandardMaterial({
                         color: 0x555555, // Change the base color here
-                        roughness: 0.5,  // Change the roughness here
-                        metalness: 0.5   // Change the metalness here
+                        roughness: 0.1,  // Change the roughness here
+                        metalness: 1.0   // Change the metalness here
                     });
                 }
             });
@@ -96,8 +96,8 @@
             requestAnimationFrame(animate);
 
             if (customModel) {
-                customModel.rotation.x += 0.01;
-                customModel.rotation.y += 0.00;
+                customModel.rotation.x += 0.00;
+                customModel.rotation.y += 0.02;
             }
 
             renderer.render(scene, camera);
