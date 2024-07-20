@@ -25,20 +25,25 @@
     <script>
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
+
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true });
+
+        // Set background color
+        renderer.setClearColor(0xffffff); // Change background color here
 
         renderer.setSize(window.innerWidth, window.innerHeight);
         container.appendChild(renderer.domElement);
 
         camera.position.z = 5;
 
-        // Add lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        // Add ambient light
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Color, Intensity
         scene.add(ambientLight);
 
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-        directionalLight.position.set(5, 5, 5).normalize();
+        // Add directional light
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Color, Intensity
+        directionalLight.position.set(5, 5, 5).normalize(); // Position
         scene.add(directionalLight);
 
         // Load the custom 3D model
@@ -48,6 +53,18 @@
         loader.load('models/lphgmodeleye.glb', function (gltf) {
             customModel = gltf.scene;
             scene.add(customModel);
+
+            // If the material needs to be modified:
+            customModel.traverse((node) => {
+                if (node.isMesh) {
+                    node.material = new THREE.MeshStandardMaterial({
+                        color: 0x555555, // Change the base color here
+                        roughness: 0.5,  // Change the roughness here
+                        metalness: 0.5   // Change the metalness here
+                    });
+                }
+            });
+
             customModel.position.set(0, 0, 0); // Center the model
             console.log('Model loaded successfully.');
         }, undefined, function (error) {
