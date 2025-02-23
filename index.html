@@ -16,6 +16,36 @@
             width: 100%;
             height: 100%;
         }
+
+	.floating-text-field {
+            position: fixed;
+    	    bottom: 20px;
+    	    right: 20px;
+    	    background: white;
+    	    padding: 10px;
+    	    border: 1px solid #ccc;
+    	    border-radius: 5px;
+    	    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    	    display: flex;
+    	    align-items: center; 
+	}
+
+	.floating-text-field input {
+    	    border: none;
+    	    outline: none;
+    	    padding: 5px;
+
+	}
+
+	.floating-text-field .close-btn {
+    	    background: none;
+    	    border: none;
+    	    cursor: pointer;
+    	    font-size: 16px;
+    	    margin-left: 10px;
+
+	}
+	    
     </style>
 </head>
 <body>
@@ -25,6 +55,12 @@
 			<li><a href="about.html">About</a></li>
 		</ul>
 	</nav>
+	
+    <div class="floating-text-field" id="textField">
+    <input type="text" placeholder="Type something...">
+    <button class="close-btn" onclick="closeTextField()">&times;</button>
+    </div>
+	
     <div id="canvas-container"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/loaders/GLTFLoader.js"></script>
@@ -119,6 +155,11 @@
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
         });
+
+	function closeTextField() {
+    	    document.getElementById('textField').style.display = 'none';
+	}
+	    
     </script>
 </body>
 </html>
