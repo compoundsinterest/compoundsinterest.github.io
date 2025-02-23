@@ -57,7 +57,7 @@
 	</nav>
 	
     <div class="floating-text-field" id="textField">
-    <input type="text" placeholder="Type something...">
+    <input type="text" placeholder="Type somit bossy">
     <button class="close-btn" onclick="closeTextField()">&times;</button>
     </div>
 	
@@ -159,7 +159,28 @@
 	function closeTextField() {
     	    document.getElementById('textField').style.display = 'none';
 	}
-	    
+
+	// Make the floating text field draggable
+        const textField = document.getElementById("textField");
+        let offsetX, offsetY, isDragging = false;
+
+        textField.addEventListener("mousedown", (e) => {
+            isDragging = true;
+            offsetX = e.clientX - textField.getBoundingClientRect().left;
+            offsetY = e.clientY - textField.getBoundingClientRect().top;
+        });
+
+        document.addEventListener("mousemove", (e) => {
+            if (!isDragging) return;
+            textField.style.left = `${e.clientX - offsetX}px`;
+            textField.style.top = `${e.clientY - offsetY}px`;
+            textField.style.right = "auto";
+            textField.style.bottom = "auto";
+        });
+
+        document.addEventListener("mouseup", () => {
+            isDragging = false;
+        });
     </script>
 </body>
 </html>
