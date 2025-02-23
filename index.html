@@ -18,19 +18,20 @@
         }
 
 	.floating-text-field {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
+	    position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             background: white;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: inline-flex;
+            display: flex;
             align-items: center;
             cursor: move;
             min-width: 100px;
-            max-width: none;
+            max-width: 300px;
             white-space: nowrap;
         }
         .floating-text-field input {
